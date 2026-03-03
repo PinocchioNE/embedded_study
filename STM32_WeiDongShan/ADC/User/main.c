@@ -38,11 +38,13 @@ int main(void)
 	
 	
 	OLED_ShowString(1, 1, "AD_VALUE:", OLED_6X8);
-
-
 	OLED_ShowString(1, 9, "Voltage: .  V", OLED_6X8);
 	
-
+	OLED_ShowString(1, 17, "AD_VALUE:", OLED_6X8);
+	OLED_ShowString(1, 26, "Voltage: .  V", OLED_6X8);	
+	
+	OLED_ShowString(1, 35, "AD_VALUE:", OLED_6X8);
+	OLED_ShowString(1, 44, "Voltage: .  V", OLED_6X8);
 	
 	while(1)
 	{
@@ -68,6 +70,21 @@ int main(void)
 		
 		
 		
+		OLED_ShowNum(54,17,ad_value_hall, 4,OLED_6X8);
+			
+		OLED_ShowNum(48,26,Voltage_hall, 1,OLED_6X8);
+			
+		OLED_ShowNum(60,26,(uint16_t)(Voltage_hall * 100) % 100, 2,OLED_6X8);
+		
+		
+		
+		OLED_ShowNum(54,35,ad_value_hot_resistor, 4,OLED_6X8);
+			
+		OLED_ShowNum(48,44,Voltage_hot_resistor, 1,OLED_6X8);
+			
+		OLED_ShowNum(60,44,(uint16_t)(Voltage_hot_resistor * 100) % 100, 2,OLED_6X8);
+		
+				
 		
 		
 		
