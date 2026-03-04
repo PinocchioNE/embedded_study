@@ -1,9 +1,6 @@
 #include "stm32f10x.h"                  // Device header
-#include "Delay.h"
-#include "OLED.h"
-#include "W25Q64.h"
-#include "SPI_hardware.h"
-#include "NM25Q128.h"
+
+#include "includes.h"
 /**
   * 坐标轴定义：
   * 左上角为(0, 0)点
@@ -24,27 +21,76 @@
   *      v
   * 
   */
-
-uint8_t aa =0x02;
+uint16_t ad_value_photo_resistor;
+uint16_t ad_value_hot_resistor;
+uint16_t ad_value_hall;
+float Voltage_photo_resistor;
+float Voltage_hot_resistor;
+float Voltage_hall;
 int main(void)
 {
 
 	/*OLED初始化*/
 	OLED_Init();
 
-	OLED_ShowHexNum(1,1,aa, 2,OLED_6X8);
-			
-	OLED_ShowHexNum(1,8,(uint32_t)&aa, 8,OLED_6X8);
-					
-
-
+	AD_Init();
 	
-	OLED_Update();
 	
-
+	
+	OLED_ShowString(1, 1, "AD_VALUE:", OLED_6X8);
+	OLED_ShowString(1, 9, "Voltage: .  V", OLED_6X8);
+	
+	OLED_ShowString(1, 17, "AD_VALUE:", OLED_6X8);
+	OLED_ShowString(1, 26, "Voltage: .  V", OLED_6X8);	
+	
+	OLED_ShowString(1, 35, "AD_VALUE:", OLED_6X8);
+	OLED_ShowString(1, 44, "Voltage: .  V", OLED_6X8);
 	
 	while(1)
 	{
+		//光敏电阻
+		ad_value_photo_resistor = AD_GetValue(ADC_Channel_3);
+		Voltage_photo_resistor = adc_calculate(ad_value_photo_resistor);
+		
+		//霍尔
+		ad_value_hall = AD_GetValue(ADC_Channel_2);
+		Voltage_hall = adc_calculate(ad_value_hall);
+				
+		//热敏电阻
+		ad_value_hot_resistor =  AD_GetValue(ADC_Channel_1);
+		Voltage_hot_resistor = adc_calculate(ad_value_hot_resistor);
+
+		
+		
+		OLED_ShowNum(54,1,ad_value_photo_resistor, 4,OLED_6X8);
+			
+		OLED_ShowNum(48,9,Voltage_photo_resistor, 1,OLED_6X8);
+			
+		OLED_ShowNum(60,9,(uint16_t)(Voltage_photo_resistor * 100) % 100, 2,OLED_6X8);
+		
+		
+		
+		OLED_ShowNum(54,17,ad_value_hall, 4,OLED_6X8);
+			
+		OLED_ShowNum(48,26,Voltage_hall, 1,OLED_6X8);
+			
+		OLED_ShowNum(60,26,(uint16_t)(Voltage_hall * 100) % 100, 2,OLED_6X8);
+		
+		
+		
+		OLED_ShowNum(54,35,ad_value_hot_resistor, 4,OLED_6X8);
+			
+		OLED_ShowNum(48,44,Voltage_hot_resistor, 1,OLED_6X8);
+			
+		OLED_ShowNum(60,44,(uint16_t)(Voltage_hot_resistor * 100) % 100, 2,OLED_6X8);
+		
+				
+		
+		
+		
+		Delay_ms(100);
+		
+		OLED_Update();
 	
 	}
 	

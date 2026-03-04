@@ -28,6 +28,7 @@
 .\objects\main.o: .\Library\stm32f10x_usart.h
 .\objects\main.o: .\Library\stm32f10x_wwdg.h
 .\objects\main.o: .\Library\misc.h
+.\objects\main.o: User\includes.h
 .\objects\main.o: .\System\Delay.h
 .\objects\main.o: .\Hardware\OLED.h
 .\objects\main.o: .\Hardware\OLED_Data.h
@@ -35,3 +36,4 @@
 .\objects\main.o: .\Hardware\W25Q64.h
 .\objects\main.o: .\Hardware\SPI_hardware.h
 .\objects\main.o: .\Hardware\NM25Q128.h
+.\objects\main.o: .\Hardware\Photoresistor.h

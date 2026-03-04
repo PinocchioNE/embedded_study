@@ -708,6 +708,26 @@
               <FileType>1</FileType>
               <FilePath>.\Hardware\SPI_software.c</FilePath>
             </File>
+            <File>
+              <FileName>Photoresistor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\Photoresistor.c</FilePath>
+            </File>
+            <File>
+              <FileName>Hall.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\Hall.c</FilePath>
+            </File>
+            <File>
+              <FileName>Hot_resistor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\Hot_resistor.c</FilePath>
+            </File>
+            <File>
+              <FileName>My_DMA.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\My_DMA.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
