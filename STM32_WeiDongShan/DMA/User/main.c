@@ -27,27 +27,72 @@ uint16_t ad_value_hall;
 float Voltage_photo_resistor;
 float Voltage_hot_resistor;
 float Voltage_hall;
+
+uint8_t oled_x_length = 6;
+uint8_t oled_y_length = 9;
+
 int main(void)
 {
-
+	
+	
+	
 	/*OLED初始化*/
 	OLED_Init();
+/******************ADC***********************************/
+	#ifdef ADC_STUDY
+		AD_Init();
+		
+		OLED_ShowString(1, 1, "AD_VALUE:", OLED_6X8);
+		OLED_ShowString(1, 9, "Voltage: .  V", OLED_6X8);
+		
+		OLED_ShowString(1, 17, "AD_VALUE:", OLED_6X8);
+		OLED_ShowString(1, 26, "Voltage: .  V", OLED_6X8);	
+		
+		OLED_ShowString(1, 35, "AD_VALUE:", OLED_6X8);
+		OLED_ShowString(1, 44, "Voltage: .  V", OLED_6X8);	
+	#endif
 
-	AD_Init();
 	
 	
+/******************DMA***********************************/
+	#ifdef DMA_STUDY
+	for(uint8_t i=0; i < 4; i++)
+	{
+			DMA_Parameter.DATA_A[i] = i;
+			DMA_Parameter.DATA_B[i] = 0;
+	}
+	//转运前
+	OLED_ShowHexNum(1, 1, DMA_Parameter.DATA_A[0], 1, OLED_6X8);
+	OLED_ShowHexNum(1*oled_x_length, 1, DMA_Parameter.DATA_A[1], 1, OLED_6X8);
+	OLED_ShowHexNum(2*oled_x_length, 1, DMA_Parameter.DATA_A[2], 1, OLED_6X8);
+	OLED_ShowHexNum(3*oled_x_length, 1, DMA_Parameter.DATA_A[3], 1, OLED_6X8);
+		
+	OLED_ShowHexNum(1, 1*oled_y_length, DMA_Parameter.DATA_B[0], 1, OLED_6X8);
+	OLED_ShowHexNum(1*oled_x_length, 1*oled_y_length, DMA_Parameter.DATA_B[1], 1, OLED_6X8);
+	OLED_ShowHexNum(2*oled_x_length, 1*oled_y_length, DMA_Parameter.DATA_B[2], 1, OLED_6X8);
+	OLED_ShowHexNum(3*oled_x_length, 1*oled_y_length, DMA_Parameter.DATA_B[3], 1, OLED_6X8);
+			
+	My_DMA_init((uint32_t)DMA_Parameter.DATA_A,(uint32_t)DMA_Parameter.DATA_B, 4);
 	
-	OLED_ShowString(1, 1, "AD_VALUE:", OLED_6X8);
-	OLED_ShowString(1, 9, "Voltage: .  V", OLED_6X8);
+	//转运后
+	OLED_ShowHexNum(1, 2*oled_y_length, DMA_Parameter.DATA_A[0], 1, OLED_6X8);
+	OLED_ShowHexNum(1*oled_x_length, 2*oled_y_length, DMA_Parameter.DATA_A[1], 1, OLED_6X8);
+	OLED_ShowHexNum(2*oled_x_length, 2*oled_y_length, DMA_Parameter.DATA_A[2], 1, OLED_6X8);
+	OLED_ShowHexNum(3*oled_x_length, 2*oled_y_length, DMA_Parameter.DATA_A[3], 1, OLED_6X8);
+		
+	OLED_ShowHexNum(1, 3*oled_y_length, DMA_Parameter.DATA_B[0], 1, OLED_6X8);
+	OLED_ShowHexNum(1*oled_x_length, 3*oled_y_length, DMA_Parameter.DATA_B[1], 1, OLED_6X8);
+	OLED_ShowHexNum(2*oled_x_length, 3*oled_y_length, DMA_Parameter.DATA_B[2], 1, OLED_6X8);
+	OLED_ShowHexNum(3*oled_x_length, 3*oled_y_length, DMA_Parameter.DATA_B[3], 1, OLED_6X8);
+			
+
+		
 	
-	OLED_ShowString(1, 17, "AD_VALUE:", OLED_6X8);
-	OLED_ShowString(1, 26, "Voltage: .  V", OLED_6X8);	
-	
-	OLED_ShowString(1, 35, "AD_VALUE:", OLED_6X8);
-	OLED_ShowString(1, 44, "Voltage: .  V", OLED_6X8);
-	
+	#endif
+/*****************************************************/	
 	while(1)
 	{
+	#ifdef ADC_STUDY
 		//光敏电阻
 		ad_value_photo_resistor = AD_GetValue(ADC_Channel_3);
 		Voltage_photo_resistor = adc_calculate(ad_value_photo_resistor);
@@ -83,8 +128,13 @@ int main(void)
 		OLED_ShowNum(48,44,Voltage_hot_resistor, 1,OLED_6X8);
 			
 		OLED_ShowNum(60,44,(uint16_t)(Voltage_hot_resistor * 100) % 100, 2,OLED_6X8);
-		
+	#endif
 				
+				
+	#ifdef DMA_STUDY
+	
+	
+	#endif
 		
 		
 		

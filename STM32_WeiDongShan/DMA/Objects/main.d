@@ -37,3 +37,4 @@
 .\objects\main.o: .\Hardware\SPI_hardware.h
 .\objects\main.o: .\Hardware\NM25Q128.h
 .\objects\main.o: .\Hardware\Photoresistor.h
+.\objects\main.o: .\Hardware\My_DMA.h

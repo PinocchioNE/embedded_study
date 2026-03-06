@@ -8,5 +8,17 @@
 #include "SPI_hardware.h"
 #include "NM25Q128.h"
 #include "Photoresistor.h"
+#include "My_DMA.h"
+
+
+
+
+//ADC
+//#define ADC_STUDY
+
+//DMA
+#define DMA_STUDY
+
+
 
 #endif
