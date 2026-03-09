@@ -28,8 +28,13 @@ float Voltage_photo_resistor;
 float Voltage_hot_resistor;
 float Voltage_hall;
 
-uint8_t oled_x_length = 6;
-uint8_t oled_y_length = 9;
+uint8_t oled_x_length_6 = 6;
+uint8_t oled_y_length_8 = 9;
+
+
+uint8_t oled_x_length_8 = 8;
+uint8_t oled_y_length_16 = 16;
+
 
 int main(void)
 {
@@ -61,30 +66,43 @@ int main(void)
 			DMA_Parameter.DATA_A[i] = i;
 			DMA_Parameter.DATA_B[i] = 0;
 	}
+	
+	uint8_t DATA_A_X = 1;
+	uint8_t DATA_B_X = 1;
+	
+	
+	OLED_ShowString(1,1, "DATA_A:",8);
+	OLED_ShowString(1,2*oled_y_length_16, "DATA_B:", 8);
+	
+	
+	OLED_ShowHexNum(8*oled_x_length_8,1, (uint32_t)DMA_Parameter.DATA_A, 8, OLED_8X16);
+	OLED_ShowHexNum(8*oled_x_length_8,2*oled_y_length_16, (uint32_t)DMA_Parameter.DATA_B, 8, OLED_8X16);
+	
+	
 	//转运前
-	OLED_ShowHexNum(1, 1, DMA_Parameter.DATA_A[0], 1, OLED_6X8);
-	OLED_ShowHexNum(1*oled_x_length, 1, DMA_Parameter.DATA_A[1], 1, OLED_6X8);
-	OLED_ShowHexNum(2*oled_x_length, 1, DMA_Parameter.DATA_A[2], 1, OLED_6X8);
-	OLED_ShowHexNum(3*oled_x_length, 1, DMA_Parameter.DATA_A[3], 1, OLED_6X8);
-		
-	OLED_ShowHexNum(1, 1*oled_y_length, DMA_Parameter.DATA_B[0], 1, OLED_6X8);
-	OLED_ShowHexNum(1*oled_x_length, 1*oled_y_length, DMA_Parameter.DATA_B[1], 1, OLED_6X8);
-	OLED_ShowHexNum(2*oled_x_length, 1*oled_y_length, DMA_Parameter.DATA_B[2], 1, OLED_6X8);
-	OLED_ShowHexNum(3*oled_x_length, 1*oled_y_length, DMA_Parameter.DATA_B[3], 1, OLED_6X8);
-			
+//	OLED_ShowHexNum(DATA_A_X, 1*oled_y_length_16, DMA_Parameter.DATA_A[0], 2, OLED_8X16);
+//	OLED_ShowHexNum((DATA_A_X*3)*oled_x_length_8, 1*oled_y_length_16, DMA_Parameter.DATA_A[1], 2, OLED_8X16);
+//	OLED_ShowHexNum((DATA_A_X*6)*oled_x_length_8, 1*oled_y_length_16, DMA_Parameter.DATA_A[2], 2, OLED_8X16);
+//	OLED_ShowHexNum((DATA_A_X*9)*oled_x_length_8, 1*oled_y_length_16, DMA_Parameter.DATA_A[3], 2, OLED_8X16);
+//		
+//	OLED_ShowHexNum(DATA_B_X, 3*oled_y_length_16, DMA_Parameter.DATA_B[0], 2, OLED_8X16);
+//	OLED_ShowHexNum((DATA_B_X*3)*oled_x_length_8, 3*oled_y_length_16, DMA_Parameter.DATA_B[1], 2, OLED_8X16);
+//	OLED_ShowHexNum((DATA_B_X*6)*oled_x_length_8, 3*oled_y_length_16, DMA_Parameter.DATA_B[2], 2, OLED_8X16);
+//	OLED_ShowHexNum((DATA_B_X*9)*oled_x_length_8, 3*oled_y_length_16, DMA_Parameter.DATA_B[3], 2, OLED_8X16);
+//					
 	My_DMA_init((uint32_t)DMA_Parameter.DATA_A,(uint32_t)DMA_Parameter.DATA_B, 4);
 	
 	//转运后
-	OLED_ShowHexNum(1, 2*oled_y_length, DMA_Parameter.DATA_A[0], 1, OLED_6X8);
-	OLED_ShowHexNum(1*oled_x_length, 2*oled_y_length, DMA_Parameter.DATA_A[1], 1, OLED_6X8);
-	OLED_ShowHexNum(2*oled_x_length, 2*oled_y_length, DMA_Parameter.DATA_A[2], 1, OLED_6X8);
-	OLED_ShowHexNum(3*oled_x_length, 2*oled_y_length, DMA_Parameter.DATA_A[3], 1, OLED_6X8);
-		
-	OLED_ShowHexNum(1, 3*oled_y_length, DMA_Parameter.DATA_B[0], 1, OLED_6X8);
-	OLED_ShowHexNum(1*oled_x_length, 3*oled_y_length, DMA_Parameter.DATA_B[1], 1, OLED_6X8);
-	OLED_ShowHexNum(2*oled_x_length, 3*oled_y_length, DMA_Parameter.DATA_B[2], 1, OLED_6X8);
-	OLED_ShowHexNum(3*oled_x_length, 3*oled_y_length, DMA_Parameter.DATA_B[3], 1, OLED_6X8);
-			
+//	OLED_ShowHexNum(1, 4*oled_y_length, DMA_Parameter.DATA_A[0], 1, OLED_6X8);
+//	OLED_ShowHexNum((DATA_B_X*1)*oled_x_length, 4*oled_y_length, DMA_Parameter.DATA_A[1], 1, OLED_8X16);
+//	OLED_ShowHexNum((DATA_B_X*2)*oled_x_length, 4*oled_y_length, DMA_Parameter.DATA_A[2], 1, OLED_8X16);
+//	OLED_ShowHexNum((DATA_B_X*3)*oled_x_length, 4*oled_y_length, DMA_Parameter.DATA_A[3], 1, OLED_8X16);
+//		
+//	OLED_ShowHexNum(1, 3*oled_y_length, DMA_Parameter.DATA_B[0], 1, OLED_8X16);
+//	OLED_ShowHexNum((DATA_B_X*1)*oled_x_length, 3*oled_y_length, DMA_Parameter.DATA_B[1], 1, OLED_8X16);
+//	OLED_ShowHexNum((DATA_B_X*2)*oled_x_length, 3*oled_y_length, DMA_Parameter.DATA_B[2], 1, OLED_8X16);
+//	OLED_ShowHexNum((DATA_B_X*3)*oled_x_length, 3*oled_y_length, DMA_Parameter.DATA_B[3], 1, OLED_8X16);
+//			
 
 		
 	
@@ -132,14 +150,46 @@ int main(void)
 				
 				
 	#ifdef DMA_STUDY
+		for(uint8_t i=0; i < 4; i++)
+		{
+				DMA_Parameter.DATA_A[i] = DMA_Parameter.DATA_A[i]++;
+
+		}
 	
+
+		OLED_ShowHexNum(DATA_A_X, 1*oled_y_length_16, DMA_Parameter.DATA_A[0], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_A_X*3)*oled_x_length_8, 1*oled_y_length_16, DMA_Parameter.DATA_A[1], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_A_X*6)*oled_x_length_8, 1*oled_y_length_16, DMA_Parameter.DATA_A[2], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_A_X*9)*oled_x_length_8, 1*oled_y_length_16, DMA_Parameter.DATA_A[3], 2, OLED_8X16);
+			
+		OLED_ShowHexNum(DATA_B_X, 3*oled_y_length_16, DMA_Parameter.DATA_B[0], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_B_X*3)*oled_x_length_8, 3*oled_y_length_16, DMA_Parameter.DATA_B[1], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_B_X*6)*oled_x_length_8, 3*oled_y_length_16, DMA_Parameter.DATA_B[2], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_B_X*9)*oled_x_length_8, 3*oled_y_length_16, DMA_Parameter.DATA_B[3], 2, OLED_8X16);
+		Delay_ms(500);							
+
+		MyDMA_Transfer();
+		
+		OLED_ShowHexNum(DATA_A_X, 1*oled_y_length_16, DMA_Parameter.DATA_A[0], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_A_X*3)*oled_x_length_8, 1*oled_y_length_16, DMA_Parameter.DATA_A[1], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_A_X*6)*oled_x_length_8, 1*oled_y_length_16, DMA_Parameter.DATA_A[2], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_A_X*9)*oled_x_length_8, 1*oled_y_length_16, DMA_Parameter.DATA_A[3], 2, OLED_8X16);
+			
+		OLED_ShowHexNum(DATA_B_X, 3*oled_y_length_16, DMA_Parameter.DATA_B[0], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_B_X*3)*oled_x_length_8, 3*oled_y_length_16, DMA_Parameter.DATA_B[1], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_B_X*6)*oled_x_length_8, 3*oled_y_length_16, DMA_Parameter.DATA_B[2], 2, OLED_8X16);
+		OLED_ShowHexNum((DATA_B_X*9)*oled_x_length_8, 3*oled_y_length_16, DMA_Parameter.DATA_B[3], 2, OLED_8X16);		
+				
+		
+		Delay_ms(500);
+		
 	
 	#endif
 		
 		
-		
-		Delay_ms(100);
-		
+//		
+//		Delay_ms(100);
+//		
 		OLED_Update();
 	
 	}
