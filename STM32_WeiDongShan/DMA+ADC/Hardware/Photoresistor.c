@@ -1,4 +1,4 @@
-#include "stm32f10x.h"
+#include "includes.h"
 #include "Photoresistor.h"
 ADC_paramater_t ADC_paramater;
 void AD_Init(void)
@@ -21,7 +21,12 @@ void AD_Init(void)
 		ADC_RegularChannelConfig(ADC1, ADC_Channel_3, 1,ADC_SampleTime_55Cycles5);
 
 		ADC_InitTypeDef ADC_InitStructure;
+		#if defined(DMA_ONCE)
 		ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;//单次扫描
+		#elif defined(DMA_CONTINUOUS)
+		ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;//连续扫描		
+		#endif
+		
 		ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;//右对齐
 		ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;//软件触发 无触发源
 		ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;//独立模式 adc1和adc2各负责各自的
@@ -37,7 +42,9 @@ void AD_Init(void)
 		while ( ADC_GetCalibrationStatus(ADC1) == SET);//校准完成
 		
 		
-		
+		#ifdef DMA_CONTINUOUS
+		ADC_SoftwareStartConvCmd(ADC1, ENABLE);	
+		#endif		
 		
 }
 
@@ -47,8 +54,9 @@ void AD_GetValue(void)
 	DMA_Cmd(DMA1_Channel1, DISABLE);
 	DMA_SetCurrDataCounter(DMA1_Channel1, ADC_LIST_LENGTH);
 	DMA_Cmd(DMA1_Channel1, ENABLE);
-	
-	ADC_SoftwareStartConvCmd(ADC1, ENABLE);
+	#ifdef DMA_ONCE
+	ADC_SoftwareStartConvCmd(ADC1, ENABLE);	
+	#endif			
 	
 	while(DMA_GetFlagStatus(DMA1_FLAG_TC1) == RESET);
 	DMA_ClearFlag(DMA1_FLAG_TC1);

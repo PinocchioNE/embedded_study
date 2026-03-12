@@ -1,9 +1,8 @@
 .\objects\my_dma.o: Hardware\My_DMA.c
-.\objects\my_dma.o: Hardware\My_DMA.h
-.\objects\my_dma.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\my_dma.o: .\User\includes.h
 .\objects\my_dma.o: .\Start\stm32f10x.h
 .\objects\my_dma.o: .\Start\core_cm3.h
+.\objects\my_dma.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\my_dma.o: .\Start\system_stm32f10x.h
 .\objects\my_dma.o: .\User\stm32f10x_conf.h
 .\objects\my_dma.o: .\Library\stm32f10x_adc.h
@@ -38,3 +37,4 @@
 .\objects\my_dma.o: .\Hardware\SPI_hardware.h
 .\objects\my_dma.o: .\Hardware\NM25Q128.h
 .\objects\my_dma.o: .\Hardware\Photoresistor.h
+.\objects\my_dma.o: .\Hardware\My_DMA.h

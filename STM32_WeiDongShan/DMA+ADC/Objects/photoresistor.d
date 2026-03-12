@@ -1,4 +1,5 @@
 .\objects\photoresistor.o: Hardware\Photoresistor.c
+.\objects\photoresistor.o: .\User\includes.h
 .\objects\photoresistor.o: .\Start\stm32f10x.h
 .\objects\photoresistor.o: .\Start\core_cm3.h
 .\objects\photoresistor.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,4 +29,12 @@
 .\objects\photoresistor.o: .\Library\stm32f10x_usart.h
 .\objects\photoresistor.o: .\Library\stm32f10x_wwdg.h
 .\objects\photoresistor.o: .\Library\misc.h
-.\objects\photoresistor.o: Hardware\Photoresistor.h
+.\objects\photoresistor.o: .\System\Delay.h
+.\objects\photoresistor.o: .\Hardware\OLED.h
+.\objects\photoresistor.o: .\Hardware\OLED_Data.h
+.\objects\photoresistor.o: .\Hardware\W25Q64.h
+.\objects\photoresistor.o: .\Hardware\W25Q64.h
+.\objects\photoresistor.o: .\Hardware\SPI_hardware.h
+.\objects\photoresistor.o: .\Hardware\NM25Q128.h
+.\objects\photoresistor.o: .\Hardware\Photoresistor.h
+.\objects\photoresistor.o: .\Hardware\My_DMA.h

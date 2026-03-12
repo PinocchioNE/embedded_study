@@ -1,5 +1,6 @@
-#include "My_DMA.h"
 #include "includes.h"
+#include "My_DMA.h"
+
 DMA_Parameter_t DMA_Parameter;
 
 
@@ -25,9 +26,12 @@ void My_DMA_init(void)
 	DMA_InitStructure.DMA_Priority = DMA_Priority_Medium;	//优先级
 	DMA_InitStructure.DMA_BufferSize = ADC_LIST_LENGTH;//数组大小
 
-	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;//enable:软件触发 disable:硬件触发
-
+	#if defined(DMA_ONCE)
 	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;//dma转运模式 是否自动重装 circular：自动重装 normal:不重装
+	#elif defined(DMA_CONTINUOUS)
+	DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;//dma转运模式 是否自动重装 circular：自动重装 normal:不重装
+	#endif
+	
 
 	DMA_Init(DMA1_Channel1, &DMA_InitStructure);
 	

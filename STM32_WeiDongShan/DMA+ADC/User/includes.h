@@ -18,7 +18,8 @@
 
 //DMA
 #define DMA_STUDY
-
+//#define DMA_ONCE
+#define DMA_CONTINUOUS
 
 
 #endif

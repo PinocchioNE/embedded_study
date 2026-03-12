@@ -50,8 +50,11 @@ aaa = sizeof(ADC_paramater.ADC_list);
 	
 	while(1)
 	{
-		//光敏电阻
+		#ifdef DMA_ONCE
 		AD_GetValue();
+		#endif
+		
+		//光敏电阻
 		ad_value_photo_resistor = ADC_paramater.ADC_list[0];
 		Voltage_photo_resistor = adc_calculate(ad_value_photo_resistor);
 		
