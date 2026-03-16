@@ -1,0 +1,10 @@
+{
+  "name": "Pytorch",
+  "sort": 8,
+  "icon": "1f4d2",
+  "closed": false,
+  "refCreateSavePath": "",
+  "createDocNameTemplate": "",
+  "dailyNoteSavePath": "/daily note/{{now | date \"2006/01\"}}/{{now | date \"2006-01-02\"}}",
+  "dailyNoteTemplatePath": ""
+}

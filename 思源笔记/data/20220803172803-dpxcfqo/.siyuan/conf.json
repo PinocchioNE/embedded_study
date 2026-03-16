@@ -1,0 +1,10 @@
+{
+  "name": "工作",
+  "sort": 1,
+  "icon": "1f9d1-200d-1f4bc",
+  "closed": false,
+  "refCreateSavePath": "",
+  "createDocNameTemplate": "",
+  "dailyNoteSavePath": "/daily note/{{now | date \"2006/01\"}}/{{now | date \"2006-01-02\"}}",
+  "dailyNoteTemplatePath": ""
+}

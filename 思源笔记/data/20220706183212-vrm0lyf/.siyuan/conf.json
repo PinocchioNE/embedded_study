@@ -1,0 +1,10 @@
+{
+  "name": "王阳明心学",
+  "sort": 13,
+  "icon": "1fa94",
+  "closed": false,
+  "refCreateSavePath": "",
+  "createDocNameTemplate": "",
+  "dailyNoteSavePath": "/daily note/{{now | date \"2006/01\"}}/{{now | date \"2006-01-02\"}}",
+  "dailyNoteTemplatePath": ""
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Docker",
+  "sort": 6,
+  "icon": "1f4d8",
+  "closed": false,
+  "refCreateSavePath": "",
+  "createDocNameTemplate": "",
+  "dailyNoteSavePath": "/daily note/{{now | date \"2006/01\"}}/{{now | date \"2006-01-02\"}}",
+  "dailyNoteTemplatePath": ""
+}

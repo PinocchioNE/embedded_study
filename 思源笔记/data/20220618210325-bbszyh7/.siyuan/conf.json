@@ -1,0 +1,10 @@
+{
+  "name": "MySql",
+  "sort": 4,
+  "icon": "1f4d7",
+  "closed": false,
+  "refCreateSavePath": "",
+  "createDocNameTemplate": "",
+  "dailyNoteSavePath": "/daily note/{{now | date \"2006/01\"}}/{{now | date \"2006-01-02\"}}",
+  "dailyNoteTemplatePath": ""
+}
