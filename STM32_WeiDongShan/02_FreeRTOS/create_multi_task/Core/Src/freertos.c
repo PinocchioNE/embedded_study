@@ -84,7 +84,30 @@ const osThreadAttr_t defaultTask_attributes = {
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+struct TaskPrintInfo{
 
+	uint8_t x;
+	uint8_t y;
+	char name[16];
+	
+	
+
+};
+
+void LcdPrintTask(void *params)
+{
+	struct TaskPrintInfo *pInfo =  params;
+	uint32_t cnt = 0;
+	int len;
+	while(1)
+	{
+		len = LCD_PrintString(pInfo->x, pInfo->y, pInfo->name );
+		len += LCD_PrintString(len, pInfo->y, ":");
+		LCD_PrintSignedVal(len, pInfo->y, cnt++);
+	} 
+
+
+}
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
