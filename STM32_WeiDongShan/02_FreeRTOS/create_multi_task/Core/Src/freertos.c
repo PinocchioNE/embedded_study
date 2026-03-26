@@ -93,6 +93,11 @@ struct TaskPrintInfo{
 	
 
 };
+static struct TaskPrintInfo g_Task1Info = {0,0, "Task1"};
+static struct TaskPrintInfo g_Task2Info = {0,3, "Task2"};
+static struct TaskPrintInfo g_Task3Info = {0,6, "Task3"};
+
+static int g_LCDCanUse = 1;
 
 void LcdPrintTask(void *params)
 {
@@ -101,9 +106,16 @@ void LcdPrintTask(void *params)
 	int len;
 	while(1)
 	{
-		len = LCD_PrintString(pInfo->x, pInfo->y, pInfo->name );
-		len += LCD_PrintString(len, pInfo->y, ":");
-		LCD_PrintSignedVal(len, pInfo->y, cnt++);
+		if(g_LCDCanUse)
+		{
+			g_LCDCanUse = 0;
+			len = LCD_PrintString(pInfo->x, pInfo->y, pInfo->name );
+			len += LCD_PrintString(len, pInfo->y, ":");
+			LCD_PrintSignedVal(len, pInfo->y, cnt++);		
+			g_LCDCanUse = 1;
+		}	
+		mdelay(500);
+		
 	} 
 
 
@@ -123,6 +135,9 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
 	TaskHandle_t xSoundTaskHandle;
 	BaseType_t ret;
+  LCD_Init();
+  LCD_Clear();
+  
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -149,14 +164,18 @@ void MX_FREERTOS_Init(void) {
   /* add threads, ... */
   /* 创建任务: 声 */
   extern void PlayMusic(void *params);
-  ret = xTaskCreate(PlayMusic, "SoundTask", 128, NULL, osPriorityNormal, &xSoundTaskHandle);
+  //ret = xTaskCreate(PlayMusic, "SoundTask", 128, NULL, osPriorityNormal, &xSoundTaskHandle);
 
   /* 创建任务: 光 */
-  xLightTaskHandle = xTaskCreateStatic(Led_Test, "LightTask", 128, NULL, osPriorityNormal, g_pucStackOfLightTask, &g_TCBofLightTask);
+ // xLightTaskHandle = xTaskCreateStatic(Led_Test, "LightTask", 128, NULL, osPriorityNormal, g_pucStackOfLightTask, &g_TCBofLightTask);
 
   /* 创建任务: 色 */
-  xColorTaskHandle = xTaskCreateStatic(ColorLED_Test, "ColorTask", 128, NULL, osPriorityNormal, g_pucStackOfColorTask, &g_TCBofColorTask);
+ // xColorTaskHandle = xTaskCreateStatic(ColorLED_Test, "ColorTask", 128, NULL, osPriorityNormal, g_pucStackOfColorTask, &g_TCBofColorTask);
 
+	//使用同一个函数创建不同的任务
+	xTaskCreate(LcdPrintTask, "task1", 128, &g_Task1Info, osPriorityAboveNormal, NULL);
+	xTaskCreate(LcdPrintTask, "task2", 128, &g_Task2Info, osPriorityAboveNormal, NULL);
+	xTaskCreate(LcdPrintTask, "task3", 128, &g_Task3Info, osPriorityAboveNormal, NULL);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -182,15 +201,15 @@ void StartDefaultTask(void *argument)
   
   for(;;)
   {
-    //Led_Test();
-    //LCD_Test();
+//    Led_Test();
+//    LCD_Test();
 	//MPU6050_Test(); 
 	//DS18B20_Test();
 	//DHT11_Test();
 	//ActiveBuzzer_Test();
 	//PassiveBuzzer_Test();
 	//ColorLED_Test();
-	IRReceiver_Test();  /* 影 */
+	//IRReceiver_Test();  /* 影 */
 	//IRSender_Test();
 	//LightSensor_Test();
 	//IRObstacle_Test();
